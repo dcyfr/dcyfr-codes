@@ -24,6 +24,7 @@ export interface Snippet {
   code: string;
   explanation: string;
   relatedSnippets: string[]; // snippet ids
+  relatedAgents?: string[]; // agentIds on dcyfr.bot
   sourceFile?: string; // .claude/skills/ path
   dcyfrAiVersion?: string; // minimum @dcyfr/ai version
   deprecated?: boolean;

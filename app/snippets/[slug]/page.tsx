@@ -11,6 +11,25 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+const AGENT_NAMES: Record<string, string> = {
+  'architecture-reviewer': 'Architecture Reviewer',
+  'change-lifecycle-manager': 'Change Lifecycle Manager',
+  'compliance-reviewer': 'Compliance Reviewer',
+  'database-architect': 'Database Architect',
+  'dependency-coordinator': 'Dependency Coordinator',
+  'devops-engineer': 'DevOps Engineer',
+  'documentation-expert': 'Documentation Expert',
+  'frontend-developer': 'Frontend Developer',
+  'fullstack-developer': 'Fullstack Developer',
+  'governance-reviewer': 'Governance Reviewer',
+  'knowledge-governance-specialist': 'Knowledge Governance Specialist',
+  'performance-profiler': 'Performance Profiler',
+  'security-engineer': 'Security Engineer',
+  'test-engineer': 'Test Engineer',
+  'typescript-pro': 'TypeScript Pro',
+  'worktree-coordinator': 'Worktree Coordinator',
+};
+
 const DIFFICULTY_COLORS = {
   beginner: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300',
   intermediate: 'border-yellow-500/30 bg-yellow-500/10 text-yellow-300',
@@ -162,7 +181,7 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
                 </div>
               )}
 
-              {/* Related */}
+              {/* Related Snippets */}
               {related.length > 0 && (
                 <div className="rounded-xl border border-dcyfr-primary-700/60 bg-dcyfr-primary-900/60 p-4">
                   <h2 className="font-semibold text-white mb-3 text-sm">Related Snippets</h2>
@@ -178,6 +197,41 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
                       </li>
                     ))}
                   </ul>
+                </div>
+              )}
+
+              {/* Related Agents */}
+              {snippet.relatedAgents && snippet.relatedAgents.length > 0 && (
+                <div className="rounded-xl border border-violet-700/40 bg-violet-950/40 p-4">
+                  <h2 className="font-semibold text-white mb-1 text-sm">Try in Agent Marketplace</h2>
+                  <p className="text-xs text-dcyfr-primary-400 mb-3">
+                    These agents can run the patterns from this snippet.
+                  </p>
+                  <ul className="space-y-2">
+                    {snippet.relatedAgents.map((agentId) => (
+                      <li key={agentId}>
+                        <a
+                          href={`https://dcyfr.bot/agents/${agentId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between text-sm text-violet-300 hover:text-white transition-colors group"
+                        >
+                          <span>{AGENT_NAMES[agentId] ?? agentId}</span>
+                          <span className="text-dcyfr-primary-500 group-hover:text-violet-400 transition-colors text-xs">↗</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-3 pt-3 border-t border-violet-700/30">
+                    <a
+                      href="https://dcyfr.bot"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-violet-400 hover:text-violet-200 transition-colors"
+                    >
+                      Browse all agents →
+                    </a>
+                  </div>
                 </div>
               )}
             </aside>
