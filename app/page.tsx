@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import snippets from '@/data/snippets.json';
 import type { Snippet, SnippetCategory } from '@/lib/types';
 import { SnippetCard } from '@/components/SnippetCard';
@@ -44,12 +45,12 @@ export default function HomePage() {
             Copy, adapt, ship.
           </p>
           <div className="mt-4">
-            <a
+            <Link
               href="/snippets"
               className="inline-flex items-center gap-2 rounded-lg bg-dcyfr-accent-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-dcyfr-accent-600"
             >
               Browse all snippets →
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -74,9 +75,9 @@ export default function HomePage() {
         <section className="mb-12" aria-label="Recent snippets">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-medium text-dcyfr-primary-300 uppercase tracking-wider">Snippets</h2>
-            <a href="/snippets" className="text-xs text-dcyfr-primary-300 hover:text-white transition-colors">
+            <Link href="/snippets" className="text-xs text-dcyfr-primary-300 hover:text-white transition-colors">
               All snippets →
-            </a>
+            </Link>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             {recent.map((snippet) => (

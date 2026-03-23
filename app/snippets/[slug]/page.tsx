@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import snippets from '@/data/snippets.json';
 import type { Snippet } from '@/lib/types';
@@ -65,9 +66,9 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
         <div className="mx-auto max-w-4xl">
           {/* Breadcrumb */}
           <nav className="mb-8 flex items-center gap-2 text-sm text-dcyfr-primary-300" aria-label="Breadcrumb">
-            <a href="/" className="hover:text-white transition-colors">dcyfr.codes</a>
+            <Link href="/" className="hover:text-white transition-colors">dcyfr.codes</Link>
             <span aria-hidden="true">/</span>
-            <a href="/snippets" className="hover:text-white transition-colors">Snippets</a>
+            <Link href="/snippets" className="hover:text-white transition-colors">Snippets</Link>
             <span aria-hidden="true">/</span>
             <span className="text-dcyfr-primary-200" aria-current="page">{snippet.title}</span>
           </nav>
@@ -184,9 +185,9 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
 
           {/* Back */}
           <div className="mt-10">
-            <a href="/snippets" className="text-sm text-dcyfr-primary-300 hover:text-white transition-colors">
+            <Link href="/snippets" className="text-sm text-dcyfr-primary-300 hover:text-white transition-colors">
               ← All snippets
-            </a>
+            </Link>
           </div>
         </div>
       </div>

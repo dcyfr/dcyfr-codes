@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -27,12 +28,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <header className="border-b border-dcyfr-primary-800/60 bg-dcyfr-primary-950/80 backdrop-blur sticky top-0 z-50">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14">
-            <a href="/" className="font-semibold text-white hover:text-dcyfr-accent-300 transition-colors">
+            <Link href="/" className="font-semibold text-white hover:text-dcyfr-accent-300 transition-colors">
               dcyfr<span className="text-dcyfr-accent-400">.codes</span>
-            </a>
+            </Link>
             <nav className="flex items-center gap-6 text-sm" aria-label="Main navigation">
-              <a href="/snippets" className="text-dcyfr-primary-300 hover:text-white transition-colors">Browse</a>
-              <a href="/categories" className="text-dcyfr-primary-300 hover:text-white transition-colors">Categories</a>
+              <Link href="/snippets" className="text-dcyfr-primary-300 hover:text-white transition-colors">Browse</Link>
+              <Link href="/categories" className="text-dcyfr-primary-300 hover:text-white transition-colors">Categories</Link>
               <a
                 href="https://dcyfr.io"
                 className="text-dcyfr-primary-300 hover:text-white transition-colors"

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import snippets from '@/data/snippets.json';
 import type { Snippet, SnippetCategory } from '@/lib/types';
@@ -51,9 +52,9 @@ export default async function CategoryPage({ params }: Readonly<Props>) {
     <div className="px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <nav className="mb-8 flex items-center gap-2 text-sm text-dcyfr-primary-300" aria-label="Breadcrumb">
-          <a href="/" className="hover:text-white transition-colors">dcyfr.codes</a>
+          <Link href="/" className="hover:text-white transition-colors">dcyfr.codes</Link>
           <span aria-hidden="true">/</span>
-          <a href="/categories" className="hover:text-white transition-colors">Categories</a>
+          <Link href="/categories" className="hover:text-white transition-colors">Categories</Link>
           <span aria-hidden="true">/</span>
           <span className="text-dcyfr-primary-200" aria-current="page">{category}</span>
         </nav>
@@ -66,7 +67,7 @@ export default async function CategoryPage({ params }: Readonly<Props>) {
         {categorySnippets.length === 0 ? (
           <div className="rounded-xl border border-dcyfr-primary-800/40 bg-dcyfr-primary-900/40 p-10 text-center">
             <p className="text-dcyfr-primary-300">No snippets in this category yet.</p>
-            <a href="/snippets" className="mt-3 block text-sm text-dcyfr-accent-300 hover:text-white transition-colors">Browse all snippets →</a>
+            <Link href="/snippets" className="mt-3 block text-sm text-dcyfr-accent-300 hover:text-white transition-colors">Browse all snippets →</Link>
           </div>
         ) : (
           <div className="grid gap-3 sm:grid-cols-2">
