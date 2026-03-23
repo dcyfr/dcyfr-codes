@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: var(--font-sans, ui-sans-serif, system-ui, -apple-system, sans-serif);
+    background-color: theme('colors.dcyfr.primary.950');
+    color: theme('colors.white');
+  }
+
+  /* Code block base styles */
+  .code-block pre {
+    @apply bg-dcyfr-primary-900 border border-dcyfr-primary-700/60 rounded-xl p-4 overflow-x-auto;
+    tab-size: 2;
+  }
+  .code-block code {
+    @apply font-mono text-sm text-dcyfr-primary-100 whitespace-pre;
+  }
+}

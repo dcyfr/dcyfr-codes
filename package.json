@@ -1,0 +1,38 @@
+{
+  "name": "dcyfr-codes-snippets",
+  "version": "0.1.0",
+  "private": true,
+  "description": "dcyfr.codes — Searchable code patterns and recipes for the DCYFR ecosystem",
+  "scripts": {
+    "dev": "next dev --port 3303",
+    "build": "next build",
+    "start": "next start --port 3303",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "export:snippets": "node scripts/extract-skills-snippets.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "dependencies": {
+    "@sentry/nextjs": "^9",
+    "@vercel/analytics": "^1.6.1",
+    "@vercel/speed-insights": "^1.3.1",
+    "clsx": "^2.1.1",
+    "next": "^15.5.10",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10",
+    "eslint": "^9",
+    "eslint-config-next": "^15",
+    "postcss": "^8",
+    "tailwindcss": "^3",
+    "typescript": "^5"
+  }
+}
