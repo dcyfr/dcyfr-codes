@@ -26,6 +26,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <body>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:border focus:border-dcyfr-accent focus:bg-dcyfr-primary-950 focus:px-4 focus:py-2 focus:text-sm focus:text-white focus:outline-none">
+          Skip to main content
+        </a>
         <header className="border-b border-dcyfr-primary-800/60 bg-dcyfr-primary-950/80 backdrop-blur sticky top-0 z-50">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14">
             <Link href="/" className="font-semibold text-white hover:text-dcyfr-accent-300 transition-colors">
@@ -46,7 +49,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </div>
         </header>
 
-        <main className="min-h-screen">
+        <main id="main-content" className="min-h-screen">
           {children}
         </main>
 

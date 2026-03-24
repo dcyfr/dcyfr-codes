@@ -24,7 +24,7 @@ export function CopyButton({ code }: Readonly<CopyButtonProps>) {
     >
       {copied ? (
         <>
-          <svg className="h-3.5 w-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <svg className="h-3.5 w-3.5 text-dcyfr-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
           Copied

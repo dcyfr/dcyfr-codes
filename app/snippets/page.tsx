@@ -71,6 +71,7 @@ export default function SnippetsPage() {
           {/* Category */}
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
             <button
+              type="button"
               onClick={() => setActiveCategory(null)}
               className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${activeCategory === null ? 'border-dcyfr-accent-700 bg-dcyfr-accent-700 text-white' : 'border-dcyfr-primary-700/60 bg-dcyfr-primary-800/40 text-dcyfr-primary-300 hover:border-dcyfr-accent/40'}`}
             >
@@ -79,6 +80,7 @@ export default function SnippetsPage() {
             {CATEGORIES.filter((c) => snippets.some((s) => s.category === c)).map((cat) => (
               <button
                 key={cat}
+                type="button"
                 onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
                 className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${activeCategory === cat ? 'border-dcyfr-accent-700 bg-dcyfr-accent-700 text-white' : 'border-dcyfr-primary-700/60 bg-dcyfr-primary-800/40 text-dcyfr-primary-300 hover:border-dcyfr-accent/40'}`}
               >
@@ -92,6 +94,7 @@ export default function SnippetsPage() {
             {DIFFICULTIES.filter((d) => snippets.some((s) => s.difficulty === d)).map((diff) => (
               <button
                 key={diff}
+                type="button"
                 onClick={() => setActiveDifficulty(activeDifficulty === diff ? null : diff)}
                 className={`rounded-full border px-3 py-1 text-xs transition-colors ${activeDifficulty === diff ? 'border-dcyfr-accent-700 bg-dcyfr-accent-700 text-white' : 'border-dcyfr-primary-700/60 bg-dcyfr-primary-800/40 text-dcyfr-primary-300 hover:border-dcyfr-accent/40'}`}
               >
@@ -101,6 +104,7 @@ export default function SnippetsPage() {
             {LANGUAGES.filter((l) => snippets.some((s) => s.language === l)).map((lang) => (
               <button
                 key={lang}
+                type="button"
                 onClick={() => setActiveLanguage(activeLanguage === lang ? null : lang)}
                 className={`rounded-full border px-3 py-1 text-xs font-mono transition-colors ${activeLanguage === lang ? 'border-dcyfr-accent-700 bg-dcyfr-accent-700 text-white' : 'border-dcyfr-primary-700/60 bg-dcyfr-primary-800/40 text-dcyfr-primary-300 hover:border-dcyfr-accent/40'}`}
               >
@@ -115,6 +119,7 @@ export default function SnippetsPage() {
           <div className="rounded-xl border border-dcyfr-primary-800/40 bg-dcyfr-primary-900/40 p-10 text-center">
             <p className="text-dcyfr-primary-300">No snippets match your filters.</p>
             <button
+              type="button"
               onClick={() => { setSearch(''); setActiveCategory(null); setActiveDifficulty(null); setActiveLanguage(null); }}
               className="mt-3 text-sm text-dcyfr-accent-300 hover:text-white transition-colors"
             >
@@ -123,7 +128,7 @@ export default function SnippetsPage() {
           </div>
         ) : (
           <>
-            <p className="text-xs text-dcyfr-primary-300 mb-4">{filtered.length} snippet{filtered.length !== 1 ? 's' : ''}</p>
+            <p className="text-xs text-dcyfr-primary-300 mb-4" aria-live="polite" aria-atomic="true">{filtered.length} snippet{filtered.length !== 1 ? 's' : ''}</p>
             <div className="grid gap-3 sm:grid-cols-2">
               {filtered.map((snippet) => (
                 <SnippetCard key={snippet.id} snippet={snippet} />
