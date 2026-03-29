@@ -31,9 +31,9 @@ const AGENT_NAMES: Record<string, string> = {
 };
 
 const DIFFICULTY_COLORS = {
-  beginner: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300',
-  intermediate: 'border-yellow-500/30 bg-yellow-500/10 text-yellow-300',
-  advanced: 'border-red-500/30 bg-red-500/10 text-red-300',
+  beginner: 'border-dcyfr-success/30 bg-dcyfr-success/10 text-dcyfr-success',
+  intermediate: 'border-dcyfr-warning/30 bg-dcyfr-warning/10 text-dcyfr-warning',
+  advanced: 'border-dcyfr-error/30 bg-dcyfr-error/10 text-dcyfr-error',
 } as const;
 
 export async function generateStaticParams() {
@@ -202,7 +202,7 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
 
               {/* Related Agents */}
               {snippet.relatedAgents && snippet.relatedAgents.length > 0 && (
-                <div className="rounded-xl border border-violet-700/40 bg-violet-950/40 p-4">
+                <div className="rounded-xl border border-dcyfr-accent/40 bg-dcyfr-accent/5 p-4">
                   <h2 className="font-semibold text-white mb-1 text-sm">Try in Agent Marketplace</h2>
                   <p className="text-xs text-dcyfr-primary-400 mb-3">
                     These agents can run the patterns from this snippet.
@@ -214,20 +214,20 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
                           href={`https://dcyfr.bot/agents/${agentId}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-between text-sm text-violet-300 hover:text-white transition-colors group"
+                          className="flex items-center justify-between text-sm text-dcyfr-accent-300 hover:text-white transition-colors group"
                         >
                           <span>{AGENT_NAMES[agentId] ?? agentId}</span>
-                          <span className="text-dcyfr-primary-500 group-hover:text-violet-400 transition-colors text-xs">↗</span>
+                          <span className="text-dcyfr-primary-500 group-hover:text-dcyfr-accent-400 transition-colors text-xs">↗</span>
                         </a>
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-3 pt-3 border-t border-violet-700/30">
+                  <div className="mt-3 pt-3 border-t border-dcyfr-accent/30">
                     <a
                       href="https://dcyfr.bot"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-violet-400 hover:text-violet-200 transition-colors"
+                      className="text-xs text-dcyfr-accent-400 hover:text-dcyfr-accent-200 transition-colors"
                     >
                       Browse all agents →
                     </a>

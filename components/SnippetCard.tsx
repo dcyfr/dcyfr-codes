@@ -6,9 +6,9 @@ interface SnippetCardProps {
 }
 
 const DIFFICULTY_COLORS = {
-  beginner: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300',
-  intermediate: 'border-yellow-500/30 bg-yellow-500/10 text-yellow-300',
-  advanced: 'border-red-500/30 bg-red-500/10 text-red-300',
+  beginner: 'border-dcyfr-success/30 bg-dcyfr-success/10 text-dcyfr-success',
+  intermediate: 'border-dcyfr-warning/30 bg-dcyfr-warning/10 text-dcyfr-warning',
+  advanced: 'border-dcyfr-error/30 bg-dcyfr-error/10 text-dcyfr-error',
 } as const;
 
 const LANGUAGE_LABELS: Record<string, string> = {

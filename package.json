@@ -9,6 +9,7 @@
     "start": "next start --port 3303",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "lint:snippets": "node scripts/lint-snippets.mjs",
     "export:snippets": "node scripts/extract-skills-snippets.mjs",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"

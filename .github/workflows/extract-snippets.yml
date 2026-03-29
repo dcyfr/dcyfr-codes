@@ -42,6 +42,9 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Extract snippets
         env:
           DRY_RUN: ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
@@ -50,10 +53,14 @@ jobs:
             --workspace-root ./dcyfr-workspace \
             $DRY_RUN
 
+      - name: Lint extracted snippets
+        run: node scripts/lint-snippets.mjs
+
       - name: Check for changes
         id: changes
         run: |
-          git diff --exit-code data/snippets.json || echo "changed=true" >> $GITHUB_OUTPUT
+          git add -f data/snippets.json
+          git diff --cached --exit-code data/snippets.json || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Create pull request
         if: steps.changes.outputs.changed == 'true' && github.event.inputs.dry_run != 'true'
