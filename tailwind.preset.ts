@@ -1,5 +1,11 @@
 /**
  * DCYFR Tailwind preset — inlined from @dcyfr/design-system for standalone deployment.
+ *
+ * @deprecated — Phase 1 scaffolding (2026-04-18) added a semantic-var bridge in
+ * `tailwind.config.ts` + `app/globals.css`. This preset stays until all pages
+ * migrate off `dcyfr-*` palette classes. See
+ * openspec/changes/dcyfr-skeleton-sites-scaffolding/tasks.md Phase 1/2.
+ *
  * Keep in sync with dcyfr-design-system/src/tailwind.preset.ts.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
