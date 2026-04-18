@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
@@ -24,8 +25,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} theme-dcyfr-codes`}>
       <body>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:border focus:border-dcyfr-accent focus:bg-dcyfr-primary-950 focus:px-4 focus:py-2 focus:text-sm focus:text-white focus:outline-none">
           Skip to main content
         </a>
@@ -75,6 +77,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </div>
         </footer>
 
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>
