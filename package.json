@@ -12,7 +12,9 @@
     "lint:snippets": "node scripts/lint-snippets.mjs",
     "export:snippets": "node scripts/extract-skills-snippets.mjs",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "test:snapshots": "playwright test e2e/snapshots.spec.ts --project=chromium",
+    "test:snapshots:update": "playwright test e2e/snapshots.spec.ts --project=chromium --update-snapshots"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

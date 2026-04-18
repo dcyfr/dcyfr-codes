@@ -3,3 +3,9 @@ node_modules/
 .vercel/
 *.env*.local
 .env
+
+# Playwright artifacts (keep e2e/snapshots.spec.ts-snapshots/ — those are baselines)
+test-results/
+playwright-report/
+playwright/.cache/
+
