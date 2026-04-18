@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { Suspense, useState, useMemo, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import snippetsData from '@/data/snippets.json';
 import type { Snippet, SnippetCategory, SnippetDifficulty, SnippetLanguage } from '@/lib/types';
@@ -33,7 +33,7 @@ const CATEGORY_SLUGS: Record<string, SnippetCategory> = Object.fromEntries(
 );
 const SLUG_OF = (c: SnippetCategory) => c.toLowerCase().replace(/\s+/g, '-');
 
-export default function SnippetsPage() {
+function SnippetsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -190,5 +190,13 @@ export default function SnippetsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function SnippetsPage() {
+  return (
+    <Suspense fallback={<div className="px-4 py-12 sm:px-6 lg:px-8" />}>
+      <SnippetsPageContent />
+    </Suspense>
   );
 }
