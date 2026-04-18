@@ -3,6 +3,8 @@ import Link from 'next/link';
 import snippets from '@/data/snippets.json';
 import type { Snippet, SnippetCategory } from '@/lib/types';
 import { SnippetCard } from '@/components/SnippetCard';
+import { DcyfrButton } from '@/components/ui/dcyfr-button';
+import { DcyfrBadge } from '@/components/ui/dcyfr-badge';
 
 export const metadata: Metadata = {
   title: 'DCYFR Codes — Agent patterns, delegation recipes, and RAG pipelines',
@@ -45,12 +47,9 @@ export default function HomePage() {
             Copy, adapt, ship.
           </p>
           <div className="mt-4">
-            <Link
-              href="/snippets"
-              className="inline-flex items-center gap-2 rounded-lg bg-dcyfr-accent-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-dcyfr-accent-600"
-            >
-              Browse all snippets →
-            </Link>
+            <DcyfrButton asChild variant="brand">
+              <Link href="/snippets">Browse all snippets →</Link>
+            </DcyfrButton>
           </div>
         </div>
 
@@ -75,9 +74,11 @@ export default function HomePage() {
         <section className="mb-12" aria-label="Recent snippets">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-medium text-dcyfr-primary-300 uppercase tracking-wider">Snippets</h2>
-            <Link href="/snippets" className="text-xs text-dcyfr-primary-300 hover:text-white transition-colors">
-              All snippets →
-            </Link>
+            <DcyfrButton asChild variant="ghostly" size="sm">
+              <Link href="/snippets" className="text-dcyfr-primary-300">
+                All snippets →
+              </Link>
+            </DcyfrButton>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             {recent.map((snippet) => (
@@ -96,10 +97,16 @@ export default function HomePage() {
                 href={`/categories/${encodeURIComponent(category.toLowerCase().replace(/\s+/g, '-'))}`}
                 className="group rounded-xl border border-dcyfr-primary-700/60 bg-dcyfr-primary-900/60 p-4 hover:border-dcyfr-accent/40 transition-colors"
               >
-                <p className="font-medium text-white group-hover:text-dcyfr-accent-300 transition-colors">{category}</p>
-                <p className="text-xs text-dcyfr-primary-300 mt-1">
-                  {cats.length} {cats.length === 1 ? 'snippet' : 'snippets'}
+                <p className="font-medium text-white group-hover:text-dcyfr-accent-300 transition-colors">
+                  {category}
                 </p>
+                <DcyfrBadge
+                  variant="info"
+                  size="sm"
+                  className="mt-1 border-0 bg-transparent px-0 text-dcyfr-primary-300"
+                >
+                  {cats.length} {cats.length === 1 ? 'snippet' : 'snippets'}
+                </DcyfrBadge>
               </a>
             ))}
           </div>
