@@ -1,9 +1,16 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import snippetsData from '@/data/snippets.json';
 import type { Snippet, SnippetCategory, SnippetDifficulty, SnippetLanguage } from '@/lib/types';
 import { SnippetCard } from '@/components/SnippetCard';
+import {
+  DcyfrTabs,
+  DcyfrTabsList,
+  DcyfrTabsTrigger,
+} from '@/components/ui/dcyfr-tabs';
+import { DcyfrBadge } from '@/components/ui/dcyfr-badge';
 
 const snippets = (snippetsData as Snippet[]).filter((s) => !s.deprecated);
 
@@ -21,11 +28,43 @@ const CATEGORIES: SnippetCategory[] = [
 const DIFFICULTIES: SnippetDifficulty[] = ['beginner', 'intermediate', 'advanced'];
 const LANGUAGES: SnippetLanguage[] = ['typescript', 'bash', 'python', 'json', 'yaml'];
 
+const CATEGORY_SLUGS: Record<string, SnippetCategory> = Object.fromEntries(
+  CATEGORIES.map((c) => [c.toLowerCase().replace(/\s+/g, '-'), c])
+);
+const SLUG_OF = (c: SnippetCategory) => c.toLowerCase().replace(/\s+/g, '-');
+
 export default function SnippetsPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState<SnippetCategory | null>(null);
   const [activeDifficulty, setActiveDifficulty] = useState<SnippetDifficulty | null>(null);
   const [activeLanguage, setActiveLanguage] = useState<SnippetLanguage | null>(null);
+
+  // URL ↔ state sync: read ?category= on mount + tab change
+  useEffect(() => {
+    const slug = searchParams.get('category');
+    if (slug && CATEGORY_SLUGS[slug]) {
+      setActiveCategory(CATEGORY_SLUGS[slug]);
+    } else if (!slug) {
+      setActiveCategory(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  const handleCategoryChange = (value: string) => {
+    if (value === 'all') {
+      setActiveCategory(null);
+      router.replace('/snippets', { scroll: false });
+    } else {
+      const cat = CATEGORY_SLUGS[value];
+      if (cat) {
+        setActiveCategory(cat);
+        router.replace(`/snippets?category=${value}`, { scroll: false });
+      }
+    }
+  };
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
@@ -68,26 +107,39 @@ export default function SnippetsPage() {
 
         {/* Filters */}
         <div className="space-y-3 mb-8">
-          {/* Category */}
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
-            <button
-              type="button"
-              onClick={() => setActiveCategory(null)}
-              className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${activeCategory === null ? 'border-dcyfr-accent-700 bg-dcyfr-accent-700 text-white' : 'border-dcyfr-primary-700/60 bg-dcyfr-primary-800/40 text-dcyfr-primary-300 hover:border-dcyfr-accent/40'}`}
+          {/* Category — tab-based per openspec/changes/dcyfr-skeleton-content-polish §2.2 */}
+          <DcyfrTabs
+            value={activeCategory === null ? 'all' : SLUG_OF(activeCategory)}
+            onValueChange={handleCategoryChange}
+          >
+            <DcyfrTabsList
+              variant="underline"
+              className="h-auto flex-wrap gap-x-4 gap-y-1 border-dcyfr-primary-800/40"
             >
-              All
-            </button>
-            {CATEGORIES.filter((c) => snippets.some((s) => s.category === c)).map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
-                className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${activeCategory === cat ? 'border-dcyfr-accent-700 bg-dcyfr-accent-700 text-white' : 'border-dcyfr-primary-700/60 bg-dcyfr-primary-800/40 text-dcyfr-primary-300 hover:border-dcyfr-accent/40'}`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+              <DcyfrTabsTrigger value="all" variant="underline" className="gap-2">
+                All
+                <DcyfrBadge variant="info" size="sm" className="bg-transparent border-0 px-1.5">
+                  {snippets.length}
+                </DcyfrBadge>
+              </DcyfrTabsTrigger>
+              {CATEGORIES.filter((c) => snippets.some((s) => s.category === c)).map((cat) => {
+                const count = snippets.filter((s) => s.category === cat).length;
+                return (
+                  <DcyfrTabsTrigger
+                    key={cat}
+                    value={SLUG_OF(cat)}
+                    variant="underline"
+                    className="gap-2"
+                  >
+                    {cat}
+                    <DcyfrBadge variant="info" size="sm" className="bg-transparent border-0 px-1.5">
+                      {count}
+                    </DcyfrBadge>
+                  </DcyfrTabsTrigger>
+                );
+              })}
+            </DcyfrTabsList>
+          </DcyfrTabs>
 
           {/* Difficulty + Language */}
           <div className="flex flex-wrap gap-2">
