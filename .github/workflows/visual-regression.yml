@@ -3,7 +3,8 @@
 # Fires on every `deployment_status` event from Vercel; filters to successful
 # Preview deploys and runs Playwright snapshots against the preview URL. On
 # failure, the playwright-report/ and test-results/ directories are uploaded
-# as artifacts so Drew (or scout) can diff locally.
+# as artifacts so Drew (or scout) can diff locally, and a sticky comment
+# is posted/updated on the associated PR with a link to the failure artifacts.
 #
 # Related:
 # - openspec/changes/dcyfr-skeleton-sites-scaffolding/spec.md#5-polish-loop
@@ -38,6 +39,10 @@ jobs:
        github.event.deployment_status.state == 'success' &&
        github.event.deployment.environment == 'Preview')
     timeout-minutes: 15
+    permissions:
+      # Required for the diff-comment step to read + write PR comments.
+      contents: read
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -70,6 +75,7 @@ jobs:
         run: npm run test:snapshots
 
       - name: Upload playwright-report on failure
+        id: upload
         if: failure()
         uses: actions/upload-artifact@v4
         with:
@@ -79,3 +85,82 @@ jobs:
             test-results/
           retention-days: 14
           if-no-files-found: ignore
+
+      - name: Post sticky PR comment on diff
+        if: failure() && github.event_name == 'deployment_status'
+        uses: actions/github-script@v7
+        env:
+          PREVIEW_URL: ${{ steps.base.outputs.url }}
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+        with:
+          script: |
+            const sha = context.payload.deployment?.sha;
+            if (!sha) {
+              core.info('No deployment.sha on this event; skipping PR lookup.');
+              return;
+            }
+
+            // Find the PR(s) associated with this commit.
+            const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: sha,
+            });
+
+            if (prs.length === 0) {
+              core.info(`No open PR associated with ${sha}; skipping comment.`);
+              return;
+            }
+
+            const marker = '<!-- visual-regression-bot -->';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const previewUrl = process.env.PREVIEW_URL;
+            const artifactUrl = process.env.ARTIFACT_URL;
+
+            const body = [
+              marker,
+              '## 🔍 Visual regression',
+              '',
+              `Snapshot mismatch detected against preview: ${previewUrl}`,
+              '',
+              `- **Workflow run:** ${runUrl}`,
+              artifactUrl
+                ? `- **Failure artifacts:** [playwright-report.zip](${artifactUrl})`
+                : '- **Failure artifacts:** see the workflow run artifacts page',
+              '',
+              'To update baselines locally:',
+              '```bash',
+              `BASE_URL=${previewUrl} npm run test:snapshots:update`,
+              '```',
+              '',
+              'If the change is intentional, commit the regenerated PNGs. Otherwise investigate the diff before merging.',
+            ].join('\n');
+
+            for (const pr of prs) {
+              // Look for an existing sticky comment to update in place.
+              const { data: comments } = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                per_page: 100,
+              });
+              const existing = comments.find((c) => c.body?.includes(marker));
+
+              if (existing) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existing.id,
+                  body,
+                });
+                core.info(`Updated sticky comment on PR #${pr.number}.`);
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  body,
+                });
+                core.info(`Posted sticky comment on PR #${pr.number}.`);
+              }
+            }
