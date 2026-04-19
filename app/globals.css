@@ -78,8 +78,8 @@
     --accent: 42 87% 55%;
     --accent-foreground: 240 10% 4%;
     --radius: 0.125rem;
-    --font-sans: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
-    --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+    --font-sans: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
   }
 
   .theme-dcyfr-codes.dark,
