@@ -1,5 +1,6 @@
 node_modules/
 .next/
+tsconfig.tsbuildinfo
 .vercel/
 *.env*.local
 .env
@@ -8,4 +9,3 @@ node_modules/
 test-results/
 playwright-report/
 playwright/.cache/
-
