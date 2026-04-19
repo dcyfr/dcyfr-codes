@@ -19,7 +19,7 @@ export function CopyButton({ code }: Readonly<CopyButtonProps>) {
     <button
       type="button"
       onClick={handleCopy}
-      className="flex items-center gap-1.5 rounded-lg border border-input/60 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:border-dcyfr-accent/40 hover:text-white transition-colors"
+      className="flex items-center gap-1.5 rounded-lg border border-input/60 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:border-secure/40 hover:text-foreground transition-colors"
       aria-label="Copy code to clipboard"
     >
       {copied ? (

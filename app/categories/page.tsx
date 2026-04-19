@@ -41,7 +41,7 @@ export default function CategoriesPage() {
   return (
     <div className="px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
-        <h1 className="text-3xl font-bold text-white mb-2">Categories</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-2">Categories</h1>
         <p className="text-muted-foreground mb-10">Browse snippets by topic area.</p>
 
         <div className="grid gap-4 sm:grid-cols-2">
@@ -49,10 +49,10 @@ export default function CategoriesPage() {
             <a
               key={category}
               href={`/categories/${slug}`}
-              className="group rounded-xl border border-input/60 bg-card/60 p-5 hover:border-dcyfr-accent/40 transition-colors"
+              className="group rounded-xl border border-input/60 bg-card/60 p-5 hover:border-secure/40 transition-colors"
             >
               <div className="flex items-start justify-between mb-2">
-                <h2 className="font-semibold text-white group-hover:text-accent transition-colors">
+                <h2 className="font-semibold text-foreground group-hover:text-accent transition-colors">
                   {category}
                 </h2>
                 <span className="text-xs text-muted-foreground shrink-0 ml-2">

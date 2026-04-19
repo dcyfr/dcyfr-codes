@@ -39,7 +39,7 @@ export default function HomePage() {
 
         {/* Hero */}
         <div className="mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">
             DCYFR Codes
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
@@ -64,7 +64,7 @@ export default function HomePage() {
               key={label}
               className="rounded-xl border border-input/60 bg-card/60 p-4 text-center"
             >
-              <p className="text-2xl font-bold text-white">{value}</p>
+              <p className="text-2xl font-bold text-foreground">{value}</p>
               <p className="text-xs text-muted-foreground mt-0.5">{label}</p>
             </div>
           ))}
@@ -95,9 +95,9 @@ export default function HomePage() {
               <a
                 key={category}
                 href={`/categories/${encodeURIComponent(category.toLowerCase().replace(/\s+/g, '-'))}`}
-                className="group rounded-xl border border-input/60 bg-card/60 p-4 hover:border-dcyfr-accent/40 transition-colors"
+                className="group rounded-xl border border-input/60 bg-card/60 p-4 hover:border-secure/40 transition-colors"
               >
-                <p className="font-medium text-white group-hover:text-accent transition-colors">
+                <p className="font-medium text-foreground group-hover:text-accent transition-colors">
                   {category}
                 </p>
                 <DcyfrBadge

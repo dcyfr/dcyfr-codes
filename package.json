@@ -7,7 +7,7 @@
     "dev": "next dev --port 3303",
     "build": "next build",
     "start": "next start --port 3303",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "lint:snippets": "node scripts/lint-snippets.mjs",
     "export:snippets": "node scripts/extract-skills-snippets.mjs",

@@ -52,14 +52,14 @@ export default async function CategoryPage({ params }: Readonly<Props>) {
     <div className="px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <nav className="mb-8 flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
-          <Link href="/" className="hover:text-white transition-colors">dcyfr.codes</Link>
+          <Link href="/" className="hover:text-foreground transition-colors">dcyfr.codes</Link>
           <span aria-hidden="true">/</span>
-          <Link href="/categories" className="hover:text-white transition-colors">Categories</Link>
+          <Link href="/categories" className="hover:text-foreground transition-colors">Categories</Link>
           <span aria-hidden="true">/</span>
           <span className="text-muted-foreground" aria-current="page">{category}</span>
         </nav>
 
-        <h1 className="text-3xl font-bold text-white mb-2">{category}</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-2">{category}</h1>
         <p className="text-muted-foreground mb-10">
           {categorySnippets.length} {categorySnippets.length === 1 ? 'snippet' : 'snippets'}
         </p>
@@ -67,7 +67,7 @@ export default async function CategoryPage({ params }: Readonly<Props>) {
         {categorySnippets.length === 0 ? (
           <div className="rounded-xl border border-border/40 bg-card/40 p-10 text-center">
             <p className="text-muted-foreground">No snippets in this category yet.</p>
-            <Link href="/snippets" className="mt-3 block text-sm text-accent hover:text-white transition-colors">Browse all snippets →</Link>
+            <Link href="/snippets" className="mt-3 block text-sm text-accent hover:text-foreground transition-colors">Browse all snippets →</Link>
           </div>
         ) : (
           <div className="grid gap-3 sm:grid-cols-2">
