@@ -22,7 +22,10 @@ const ROUTES = [
 for (const route of ROUTES) {
   for (const vp of VIEWPORTS) {
     test(`${route.name} @ ${vp.name}`, async ({ page }) => {
-      await page.emulateMedia({ reducedMotion: 'reduce' });
+      // colorScheme lock — pre-migration hardcoded palette was effectively
+      // dark-only; baselines preserved against dark-mode render. See
+      // openspec/changes/dcyfr-palette-class-migration spec §2.2.
+      await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'dark' });
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto(route.path, { waitUntil: 'domcontentloaded' });
       await page.waitForTimeout(1500);

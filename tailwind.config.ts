@@ -1,12 +1,13 @@
 import type { Config } from 'tailwindcss';
-import dcyfrPreset from './tailwind.preset';
 
 /**
- * dcyfr.codes Tailwind v3 config. Composes legacy preset + semantic-var bridge.
- * Phase 1 of dcyfr-skeleton-sites-scaffolding.
+ * dcyfr.codes Tailwind v3 config — semantic-var bridge only.
+ *
+ * Legacy `./tailwind.preset.ts` retired 2026-04-18 under
+ * openspec/changes/dcyfr-palette-class-migration (Wave 2). All 101 call
+ * sites migrated to semantic-var utilities.
  */
 const config: Config = {
-  presets: [dcyfrPreset],
   darkMode: 'class',
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',

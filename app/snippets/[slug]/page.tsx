@@ -84,12 +84,12 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
       <div className="px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
           {/* Breadcrumb */}
-          <nav className="mb-8 flex items-center gap-2 text-sm text-dcyfr-primary-300" aria-label="Breadcrumb">
+          <nav className="mb-8 flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white transition-colors">dcyfr.codes</Link>
             <span aria-hidden="true">/</span>
             <Link href="/snippets" className="hover:text-white transition-colors">Snippets</Link>
             <span aria-hidden="true">/</span>
-            <span className="text-dcyfr-primary-200" aria-current="page">{snippet.title}</span>
+            <span className="text-muted-foreground" aria-current="page">{snippet.title}</span>
           </nav>
 
           <div className="grid gap-8 lg:grid-cols-3">
@@ -101,17 +101,17 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
                   <span className={clsx('rounded-full border px-2.5 py-0.5 text-xs font-medium', DIFFICULTY_COLORS[snippet.difficulty])}>
                     {snippet.difficulty}
                   </span>
-                  <span className="rounded border border-dcyfr-primary-600/40 bg-dcyfr-primary-800/60 px-1.5 py-0.5 text-xs font-mono text-dcyfr-accent-300">
+                  <span className="rounded border border-input/40 bg-muted/60 px-1.5 py-0.5 text-xs font-mono text-accent">
                     {snippet.language}
                   </span>
                   {snippet.deprecated && (
-                    <span className="rounded-full border border-dcyfr-primary-600/40 bg-dcyfr-primary-800/40 px-2 py-0.5 text-xs text-dcyfr-primary-300">
+                    <span className="rounded-full border border-input/40 bg-muted/40 px-2 py-0.5 text-xs text-muted-foreground">
                       deprecated
                     </span>
                   )}
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-white mb-3">{snippet.title}</h1>
-                <p className="text-dcyfr-primary-300 leading-relaxed">{snippet.description}</p>
+                <p className="text-muted-foreground leading-relaxed">{snippet.description}</p>
               </div>
 
               {/* Code */}
@@ -132,7 +132,7 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
               {snippet.explanation && (
                 <div>
                   <h2 className="text-sm font-medium text-white mb-2">How it works</h2>
-                  <p className="text-dcyfr-primary-300 leading-relaxed text-sm">{snippet.explanation}</p>
+                  <p className="text-muted-foreground leading-relaxed text-sm">{snippet.explanation}</p>
                 </div>
               )}
             </div>
@@ -140,25 +140,25 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
             {/* Sidebar */}
             <aside className="space-y-5">
               {/* Meta */}
-              <div className="rounded-xl border border-dcyfr-primary-700/60 bg-dcyfr-primary-900/60 p-4">
+              <div className="rounded-xl border border-input/60 bg-card/60 p-4">
                 <h2 className="font-semibold text-white mb-3 text-sm">Details</h2>
                 <dl className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <dt className="text-dcyfr-primary-300">Category</dt>
+                    <dt className="text-muted-foreground">Category</dt>
                     <dd className="text-white">{snippet.category}</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-dcyfr-primary-300">Difficulty</dt>
+                    <dt className="text-muted-foreground">Difficulty</dt>
                     <dd className="text-white capitalize">{snippet.difficulty}</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-dcyfr-primary-300">Language</dt>
+                    <dt className="text-muted-foreground">Language</dt>
                     <dd className="text-white">{snippet.language}</dd>
                   </div>
                   {snippet.dcyfrAiVersion && (
                     <div className="flex justify-between">
-                      <dt className="text-dcyfr-primary-300">@dcyfr/ai</dt>
-                      <dd className="font-mono text-xs text-dcyfr-accent-300">{snippet.dcyfrAiVersion}</dd>
+                      <dt className="text-muted-foreground">@dcyfr/ai</dt>
+                      <dd className="font-mono text-xs text-accent">{snippet.dcyfrAiVersion}</dd>
                     </div>
                   )}
                 </dl>
@@ -166,13 +166,13 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
 
               {/* Tags */}
               {snippet.tags.length > 0 && (
-                <div className="rounded-xl border border-dcyfr-primary-700/60 bg-dcyfr-primary-900/60 p-4">
+                <div className="rounded-xl border border-input/60 bg-card/60 p-4">
                   <h2 className="font-semibold text-white mb-3 text-sm">Tags</h2>
                   <div className="flex flex-wrap gap-1.5">
                     {snippet.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-dcyfr-primary-600/40 bg-dcyfr-primary-800/60 px-2.5 py-0.5 text-xs text-dcyfr-primary-200"
+                        className="rounded-full border border-input/40 bg-muted/60 px-2.5 py-0.5 text-xs text-muted-foreground"
                       >
                         {tag}
                       </span>
@@ -183,14 +183,14 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
 
               {/* Related Snippets */}
               {related.length > 0 && (
-                <div className="rounded-xl border border-dcyfr-primary-700/60 bg-dcyfr-primary-900/60 p-4">
+                <div className="rounded-xl border border-input/60 bg-card/60 p-4">
                   <h2 className="font-semibold text-white mb-3 text-sm">Related Snippets</h2>
                   <ul className="space-y-2">
                     {related.map((r) => (
                       <li key={r.id}>
                         <a
                           href={`/snippets/${r.slug}`}
-                          className="text-sm text-dcyfr-primary-300 hover:text-white transition-colors"
+                          className="text-sm text-muted-foreground hover:text-white transition-colors"
                         >
                           {r.title}
                         </a>
@@ -204,7 +204,7 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
               {snippet.relatedAgents && snippet.relatedAgents.length > 0 && (
                 <div className="rounded-xl border border-dcyfr-accent/40 bg-dcyfr-accent/5 p-4">
                   <h2 className="font-semibold text-white mb-1 text-sm">Try in Agent Marketplace</h2>
-                  <p className="text-xs text-dcyfr-primary-400 mb-3">
+                  <p className="text-xs text-muted-foreground mb-3">
                     These agents can run the patterns from this snippet.
                   </p>
                   <ul className="space-y-2">
@@ -214,10 +214,10 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
                           href={`https://dcyfr.bot/agents/${agentId}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-between text-sm text-dcyfr-accent-300 hover:text-white transition-colors group"
+                          className="flex items-center justify-between text-sm text-accent hover:text-white transition-colors group"
                         >
                           <span>{AGENT_NAMES[agentId] ?? agentId}</span>
-                          <span className="text-dcyfr-primary-500 group-hover:text-dcyfr-accent-400 transition-colors text-xs">↗</span>
+                          <span className="text-muted-foreground group-hover:text-primary transition-colors text-xs">↗</span>
                         </a>
                       </li>
                     ))}
@@ -227,7 +227,7 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
                       href="https://dcyfr.bot"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-dcyfr-accent-400 hover:text-dcyfr-accent-200 transition-colors"
+                      className="text-xs text-primary hover:text-accent/70 transition-colors"
                     >
                       Browse all agents →
                     </a>
@@ -239,7 +239,7 @@ export default async function SnippetPage({ params }: Readonly<Props>) {
 
           {/* Back */}
           <div className="mt-10">
-            <Link href="/snippets" className="text-sm text-dcyfr-primary-300 hover:text-white transition-colors">
+            <Link href="/snippets" className="text-sm text-muted-foreground hover:text-white transition-colors">
               ← All snippets
             </Link>
           </div>
