@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
+    "@vercel/toolbar": "^0.1.22",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
