@@ -86,7 +86,7 @@ export function ThemeToggle({ onThemeChange }: ThemeToggleProps) {
         variant="ghost"
         size="icon"
         aria-label="Toggle theme"
-        className="opacity-0"
+        className="touch-target opacity-0"
         disabled
       >
         <Monitor className="h-4 w-4" aria-hidden="true" />
@@ -99,6 +99,7 @@ export function ThemeToggle({ onThemeChange }: ThemeToggleProps) {
       variant="ghost"
       size="icon"
       aria-label={getThemeLabel()}
+      className="touch-target"
       onClick={handleToggle}
       disabled={isPending}
    >
